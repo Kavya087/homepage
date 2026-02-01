@@ -1,5 +1,3 @@
-# homepage
-
 # Project Goals
 
 This project aims to understand when and why AI-supported decision tools succeed, fail, or backfire in international development settings. Rather than asking whether a tool is technically accurate, we focus on whether it is accepted, sustained, and beneficial in real communities over time.
