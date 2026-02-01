@@ -1,0 +1,14 @@
+name: Lighthouse Check
+
+on: [push]
+
+jobs:
+  lighthouse:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: treosh/lighthouse-ci-action@v11
+        with:
+          urls: |
+            https://YOUR-USERNAME.github.io/homepage/
+          budgetPath: ./budget.json
