@@ -9,6 +9,11 @@
     content="A systems-modeling project on when and why AI-supported decision tools succeed, fail, or backfire in international development."
   />
 
+  <!-- PWA additions -->
+  <link rel="manifest" href="manifest.webmanifest">
+  <meta name="theme-color" content="#111111">
+  <link rel="apple-touch-icon" href="icons/icon-192.png">
+
   <style>
     body {
       margin: 0;
@@ -136,5 +141,15 @@
       <p>Last updated: February 2026</p>
     </footer>
   </div>
+
+  <!-- Service Worker Registration -->
+  <script>
+    if ("serviceWorker" in navigator) {
+      window.addEventListener("load", function() {
+        navigator.serviceWorker.register("sw.js");
+      });
+    }
+  </script>
+
 </body>
 </html>
