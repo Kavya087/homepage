@@ -12,16 +12,16 @@
     { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png" }
   ],
   "screenshots": [
-    {
-      "src": "screenshots/desktop-wide.png",
-      "sizes": "1280x720",
-      "type": "image/png",
-      "form_factor": "wide"
-    },
-    {
-      "src": "screenshots/mobile.png",
-      "sizes": "750x1334",
-      "type": "image/png"
-    }
-  ]
+  {
+    "src": "screenshots/desktop-wide.png",
+    "sizes": "1200x768",
+    "type": "image/png",
+    "form_factor": "wide"
+  },
+  {
+    "src": "screenshots/mobile.png",
+    "sizes": "1179x2556",
+    "type": "image/png"
+  }
+]
 }
