@@ -120,13 +120,205 @@
       </section>
 
       <section aria-labelledby="approach">
-        <h2 id="approach">Approach</h2>
-        <p>
-          We use dynamic systems modeling to study the interaction between decision
-          tools, household behavior under risk, social learning, and environmental
-          feedbacks.
-        </p>
-      </section>
+  <h2 id="approach">Approach</h2>
+
+  <p>
+    We use dynamic systems modeling to study the interaction between decision
+    tools, household behavior under risk, social learning, and environmental
+    feedbacks.
+  </p>
+
+  <h3>1. Purpose of the Model</h3>
+  <p>
+    This agent-based model (ABM) simulates how fishers in a local community
+    decide whether to adopt and continue using an AI-supported fisheries app
+    over time.
+  </p>
+  <p>The model focuses on five core drivers of uptake:</p>
+  <ul>
+    <li>Trust</li>
+    <li>Perceptions of risk</li>
+    <li>Learning from past outcomes</li>
+    <li>Peer influence</li>
+    <li>Environmental variability</li>
+  </ul>
+
+  <h3>2. Model Overview</h3>
+  <p>
+    The model represents a fishing community composed of individual fishers
+    (agents) connected through a social network. Each season, fishers decide
+    whether to use the app based on their trust, past experiences, perceived
+    risk, and what their peers are doing.
+  </p>
+  <p>
+    Environmental conditions vary across seasons, influencing both fishing
+    outcomes and how fishers interpret the app’s performance.
+  </p>
+  <p>
+    The model runs over multiple time periods (e.g., fishing seasons) and
+    tracks how adoption evolves.
+  </p>
+
+  <h3>3. Agents</h3>
+  <p>
+    Each fisher is represented as an agent with the following characteristics:
+  </p>
+
+  <h4>3.1 Trust</h4>
+  <p>Represents confidence in the app and the institution behind it.</p>
+  <ul>
+    <li>Increases gradually after positive experiences</li>
+    <li>Decreases sharply after negative experiences</li>
+    <li>Is influenced by the trust levels of peers</li>
+  </ul>
+
+  <h4>3.2 Perceived Risk</h4>
+  <p>Represents how risky it feels to rely on the app.</p>
+  <ul>
+    <li>Increases after bad outcomes</li>
+    <li>Increases when environmental conditions are highly unpredictable</li>
+    <li>Decreases when many peers successfully use the app</li>
+  </ul>
+
+  <h4>3.3 Belief in Usefulness</h4>
+  <p>
+    Represents the fisher’s belief that the app improves outcomes (e.g., catch,
+    safety, income).
+  </p>
+  <p>Beliefs update over time based on personal experience.</p>
+  <p>Negative experiences may carry more weight than positive ones.</p>
+
+  <h4>3.4 Adoption Status</h4>
+  <p>Each season, a fisher either:</p>
+  <ul>
+    <li>Uses the app</li>
+    <li>Does not use the app</li>
+  </ul>
+  <p>
+    Adoption is probabilistic and depends on trust, beliefs, perceived risk,
+    environmental conditions, and peer behavior.
+  </p>
+
+  <h4>3.5 Social Network</h4>
+  <p>Each fisher observes a set of peers.</p>
+  <p>Peer influence affects:</p>
+  <ul>
+    <li>Willingness to adopt</li>
+    <li>Trust updates</li>
+    <li>Perceived risk</li>
+  </ul>
+  <p>
+    Fishers may copy behavior or confidence from their social contacts.
+  </p>
+
+  <h3>4. Environment</h3>
+  <p>
+    Each season has a level of environmental variability.
+  </p>
+  <p>Examples include:</p>
+  <ul>
+    <li>Stable conditions</li>
+    <li>Moderately variable conditions</li>
+    <li>Highly volatile conditions (storms, shifting fish patterns, unusual weather)</li>
+  </ul>
+  <p>Environmental variability affects:</p>
+  <ul>
+    <li>The reliability of fishing outcomes</li>
+    <li>The clarity of feedback about whether the app is helpful</li>
+    <li>Perceived risk</li>
+  </ul>
+  <p>
+    Higher variability makes outcomes noisier and learning more difficult.
+  </p>
+
+  <h3>5. Seasonal Dynamics</h3>
+  <p>Each season unfolds in the following sequence:</p>
+
+  <h4>Step 1: Environmental Conditions Realize</h4>
+  <p>The season is characterized by a specific level of variability.</p>
+
+  <h4>Step 2: Social Observation</h4>
+  <p>Fishers observe:</p>
+  <ul>
+    <li>Which peers are using the app</li>
+    <li>Whether peers appear satisfied or dissatisfied</li>
+  </ul>
+
+  <h4>Step 3: Adoption Decision</h4>
+  <p>This decision depends on:</p>
+  <ul>
+    <li>Trust</li>
+    <li>Belief in usefulness</li>
+    <li>Perceived risk</li>
+    <li>Environmental conditions</li>
+    <li>Peer behavior</li>
+  </ul>
+
+  <h4>Step 4: Outcomes Occur</h4>
+  <p>Fishers experience fishing outcomes.</p>
+  <p>If using the app, outcomes may be:</p>
+  <ul>
+    <li>Better than baseline</li>
+    <li>Worse than baseline</li>
+    <li>Ambiguous due to environmental noise</li>
+  </ul>
+  <p>
+    In volatile seasons, even a useful app may appear ineffective.
+  </p>
+
+  <h4>Step 5: Updating</h4>
+  <p>Fishers update:</p>
+  <ul>
+    <li>Beliefs about usefulness</li>
+    <li>Trust</li>
+    <li>Perceived risk</li>
+  </ul>
+  <p>
+    Highly visible failures may reduce trust across the entire community.
+  </p>
+
+  <h3>6. Possible System Dynamics</h3>
+
+  <h4>6.1 Gradual Diffusion</h4>
+  <p>Adoption increases steadily as trust builds and peers influence others.</p>
+
+  <h4>6.2 Fragility</h4>
+  <p>A single extreme season reduces trust significantly.</p>
+
+  <h4>6.3 Trust Collapse</h4>
+  <p>A public or widely discussed failure causes rapid decline in adoption.</p>
+
+  <h4>6.4 Persistent Inequality</h4>
+  <p>Risk-averse or resource-constrained fishers may never adopt.</p>
+
+  <h4>6.5 Context-Dependent Success</h4>
+  <p>
+    The same app may succeed in moderately variable environments but struggle
+    in highly volatile environments.
+  </p>
+
+  <h3>7. Policy and Design Experiments</h3>
+  <p>The model allows simulation of interventions such as:</p>
+  <ul>
+    <li>Training programs that accelerate trust-building</li>
+    <li>Human facilitation to reduce perceived risk</li>
+    <li>Subsidies lowering adoption barriers</li>
+    <li>Communication strategies after failures</li>
+    <li>Different network structures (central influencers vs decentralized communities)</li>
+  </ul>
+
+  <h3>8. Outputs Tracked</h3>
+  <p>Over time, the model tracks:</p>
+  <ul>
+    <li>Overall adoption rate</li>
+    <li>Trust distribution</li>
+    <li>Dropout rates</li>
+    <li>Sensitivity to environmental shocks</li>
+    <li>Differences across subgroups</li>
+    <li>Stability versus collapse of uptake</li>
+  </ul>
+</section>
+
 
       <section aria-labelledby="collaborators">
         <h2 id="collaborators">Collaborators</h2>
