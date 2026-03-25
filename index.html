@@ -344,6 +344,8 @@
     <li><a href="#about">About</a></li>
     <li><a href="#model">Model</a></li>
     <li><a href="#goals">Research Goals</a></li>
+    <li><a href="#validation">Validation</a></li>
+    <li><a href="#sensitivity">Sensitivity</a></li>
   </ul>
 </nav>
 
@@ -469,6 +471,60 @@
       </div>
     </div>
 
+  </div>
+</section>
+
+<!-- VALIDATION -->
+<section id="validation" aria-labelledby="validation-heading">
+  <div class="section-label">04 &mdash; Model Validation</div>
+  <h2 id="validation-heading">Confirming the model does<br>what the theory says it should</h2>
+  <p>Before running experiments, the model is subjected to a series of logical consistency checks. These tests require no empirical data — they verify that each mechanism behaves as expected when pushed to its extremes.</p>
+
+  <div class="model-grid" style="margin-top: 3rem;">
+    <div class="model-item">
+      <div class="model-item-label">Extreme Value Tests</div>
+      <h3>Parameter Boundaries</h3>
+      <p>Each parameter is set to 0 and then to its maximum in isolation. Trust at zero should produce near-zero adoption; perceived risk at maximum should suppress uptake; shock probability at zero should yield clean seasonal patterns.</p>
+    </div>
+    <div class="model-item">
+      <div class="model-item-label">Mechanism Isolation</div>
+      <h3>Single-Mechanism Tests</h3>
+      <p>Each mechanism is activated in isolation with all others held neutral. Social influence alone should produce faster diffusion in clustered networks; trust updating alone should erode after bad seasons and recover after good ones.</p>
+    </div>
+    <div class="model-item">
+      <div class="model-item-label">Boundary Conditions</div>
+      <h3>Edge Cases</h3>
+      <p>Zero agents, one agent, and full pre-adoption at t=0 are each tested to confirm the model handles edge cases without crashing or producing nonsensical outputs.</p>
+    </div>
+    <div class="model-item">
+      <div class="model-item-label">Time Stability</div>
+      <h3>Long-Run Equilibrium</h3>
+      <p>The model is run for an extended period under neutral parameters and no shocks. Results should converge to a stable equilibrium rather than drift, oscillate, or explode — confirming the absence of unintended feedback loops.</p>
+    </div>
+  </div>
+</section>
+
+<!-- SENSITIVITY ANALYSIS -->
+<section id="sensitivity" aria-labelledby="sensitivity-heading">
+  <div class="section-label">05 &mdash; Sensitivity Analysis</div>
+  <h2 id="sensitivity-heading">Which parameters actually<br>drive the results?</h2>
+  <p>Sensitivity analysis is conducted in two stages using the SALib Python library. The first stage screens all parameters cheaply; the second stage quantifies the influence of the most important ones in detail.</p>
+
+  <div class="model-grid" style="margin-top: 3rem;">
+    <div class="model-item">
+      <div class="model-item-label">Stage 1 &mdash; Morris Method</div>
+      <h3>Parameter Screening</h3>
+      <p>The Morris method runs approximately 3,000 model evaluations across the full parameter space, producing two indices per parameter: <em>μ*</em> (overall influence on adoption outcomes) and <em>σ</em> (non-linearity and interaction effects). Parameters with low <em>μ*</em> are fixed at default values and excluded from further analysis.</p>
+    </div>
+    <div class="model-item">
+      <div class="model-item-label">Stage 2 &mdash; Sobol Indices</div>
+      <h3>Variance Decomposition</h3>
+      <p>Sobol analysis is applied to the subset of parameters identified as important by Morris. First-order indices (S1) quantify each parameter's individual contribution to output variance; total-order indices (ST) capture its contribution including all interactions. Where ST significantly exceeds S1, parameter interactions are theoretically meaningful and reported.</p>
+    </div>
+  </div>
+
+  <div class="context-box" style="margin-top: 3rem;">
+    <p>Results pending model completion. Sensitivity analysis will be reported as an Online Appendix accompanying all four studies.</p>
   </div>
 </section>
 </main>
