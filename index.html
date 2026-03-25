@@ -1,462 +1,473 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Modeling Adoption Dynamics in International Development</title>
-  <meta
-    name="description"
-    content="A systems-modeling project on when and why AI-supported decision tools succeed, fail, or backfire in international development."
-  />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Modeling Adoption Dynamics in International Development</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #1a1a18;
+    --paper: #f5f1e8;
+    --accent: #2d5a3d;
+    --accent-light: #4a8c62;
+    --muted: #7a7a72;
+    --rule: #c8c2b0;
+    --highlight: #e8f0eb;
+  }
 
-  <!-- PWA additions -->
-  <link rel="manifest" href="manifest.webmanifest">
-  <meta name="theme-color" content="#111111">
-  <link rel="apple-touch-icon" href="icons/icon-192.png">
+  * { margin: 0; padding: 0; box-sizing: border-box; }
 
-  <style>
-    body {
-      margin: 0;
-      font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
-      line-height: 1.65;
-      color: #111;
-      background: #fff;
-    }
+  html { scroll-behavior: smooth; }
 
-    .container {
-      max-width: 900px;
-      margin: 0 auto;
-      padding: 32px 18px 48px;
-    }
+  body {
+    font-family: 'EB Garamond', Georgia, serif;
+    background: var(--paper);
+    color: var(--ink);
+    font-size: 18px;
+    line-height: 1.7;
+  }
 
-    header {
-      margin-bottom: 32px;
-      border-bottom: 1px solid #e5e5e5;
-      padding-bottom: 20px;
-    }
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    background: var(--paper);
+    border-bottom: 1px solid var(--rule);
+    padding: 0 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 60px;
+  }
 
-    h1 {
-      font-size: 1.9rem;
-      margin: 0 0 8px 0;
-      line-height: 1.25;
-    }
+  .nav-brand {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent);
+    font-weight: 500;
+  }
 
-    h2 {
-      font-size: 1.35rem;
-      margin-top: 36px;
-      margin-bottom: 12px;
-    }
+  .nav-links {
+    display: flex;
+    gap: 2.5rem;
+    list-style: none;
+  }
 
-    p {
-      margin: 0 0 14px 0;
-    }
+  .nav-links a {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.68rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
 
-    ol {
-      padding-left: 22px;
-    }
+  .nav-links a:hover { color: var(--accent); }
 
-    li {
-      margin-bottom: 12px;
-    }
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 8rem 3rem 5rem;
+    max-width: 900px;
+    margin: 0 auto;
+    position: relative;
+  }
 
-    footer {
-      margin-top: 48px;
-      padding-top: 16px;
-      border-top: 1px solid #e5e5e5;
-      font-size: 0.9rem;
-      color: #444;
-    }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: 60px; right: -200px;
+    width: 500px; height: 500px;
+    background: radial-gradient(circle, rgba(45,90,61,0.06) 0%, transparent 70%);
+    pointer-events: none;
+  }
 
-    h3 {
-      font-size: 1.15rem;
-      margin-top: 22px;
-      margin-bottom: 10px;
-    }
-    
-    h4 {
-      font-size: 1.02rem;
-      margin-top: 16px;
-      margin-bottom: 8px;
-    }
-    
-    ul {
-      padding-left: 22px;
-      margin: 0 0 14px 0;
-    }
-    
-    ul li {
-      margin-bottom: 8px;
-    }
+  .hero-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 2rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
 
-  </style>
+  .hero-label::after {
+    content: '';
+    display: block;
+    width: 40px;
+    height: 1px;
+    background: var(--accent);
+  }
+
+  h1 {
+    font-size: clamp(2.2rem, 5vw, 3.8rem);
+    font-weight: 500;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    margin-bottom: 2rem;
+    max-width: 800px;
+  }
+
+  h1 em {
+    font-style: italic;
+    color: var(--accent);
+  }
+
+  .hero-sub {
+    font-size: 1.15rem;
+    color: var(--muted);
+    max-width: 580px;
+    line-height: 1.8;
+    margin-bottom: 3rem;
+  }
+
+  .hero-meta {
+    display: flex;
+    gap: 3rem;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.08em;
+    color: var(--muted);
+    border-top: 1px solid var(--rule);
+    padding-top: 2rem;
+  }
+
+  .hero-meta span { color: var(--ink); display: block; font-size: 0.85rem; font-family: 'EB Garamond', serif; margin-top: 0.3rem; }
+
+  /* SECTIONS */
+  section {
+    padding: 6rem 3rem;
+    max-width: 900px;
+    margin: 0 auto;
+    border-top: 1px solid var(--rule);
+  }
+
+  .section-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.68rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 3rem;
+  }
+
+  h2 {
+    font-size: 2rem;
+    font-weight: 500;
+    letter-spacing: -0.02em;
+    margin-bottom: 1.5rem;
+    line-height: 1.2;
+  }
+
+  p { color: var(--ink); margin-bottom: 1.2rem; }
+  p:last-child { margin-bottom: 0; }
+
+  /* MODEL OUTLINE */
+  .model-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+    border: 1px solid var(--rule);
+    margin-top: 3rem;
+  }
+
+  .model-item {
+    padding: 2rem;
+    border-right: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .model-item:nth-child(even) { border-right: none; }
+  .model-item:nth-last-child(-n+2) { border-bottom: none; }
+
+  .model-item-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.62rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 0.75rem;
+  }
+
+  .model-item h3 {
+    font-size: 1.05rem;
+    font-weight: 500;
+    margin-bottom: 0.6rem;
+  }
+
+  .model-item p {
+    font-size: 0.9rem;
+    color: var(--muted);
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  /* PAPERS */
+  .papers-list { margin-top: 3rem; }
+
+  .paper-item {
+    display: grid;
+    grid-template-columns: 80px 1fr;
+    gap: 2rem;
+    padding: 2.5rem 0;
+    border-bottom: 1px solid var(--rule);
+    align-items: start;
+  }
+
+  .paper-item:first-child { border-top: 1px solid var(--rule); }
+
+  .paper-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 2.5rem;
+    font-weight: 300;
+    color: var(--rule);
+    line-height: 1;
+    padding-top: 0.2rem;
+  }
+
+  .paper-content h3 {
+    font-size: 1.15rem;
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+    line-height: 1.3;
+  }
+
+  .paper-content .target {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent-light);
+    margin-bottom: 0.75rem;
+  }
+
+  .paper-content p {
+    font-size: 0.95rem;
+    color: var(--muted);
+    line-height: 1.7;
+    margin: 0;
+  }
+
+  .paper-badge {
+    display: inline-block;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    background: var(--highlight);
+    color: var(--accent);
+    border: 1px solid var(--accent-light);
+    padding: 0.2rem 0.6rem;
+    margin-bottom: 0.75rem;
+  }
+
+  /* CONTEXT BOX */
+  .context-box {
+    background: var(--highlight);
+    border-left: 3px solid var(--accent);
+    padding: 2rem 2.5rem;
+    margin: 2.5rem 0;
+  }
+
+  .context-box p {
+    font-size: 1rem;
+    font-style: italic;
+    color: var(--ink);
+    margin: 0;
+  }
+
+  /* FOOTER */
+  footer {
+    border-top: 1px solid var(--rule);
+    padding: 3rem;
+    max-width: 900px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.68rem;
+    letter-spacing: 0.08em;
+    color: var(--muted);
+  }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .hero-label { animation: fadeUp 0.6s ease both; }
+  h1 { animation: fadeUp 0.6s 0.1s ease both; }
+  .hero-sub { animation: fadeUp 0.6s 0.2s ease both; }
+  .hero-meta { animation: fadeUp 0.6s 0.3s ease both; }
+
+  @media (max-width: 680px) {
+    nav { padding: 0 1.5rem; }
+    .nav-links { gap: 1.5rem; }
+    .hero { padding: 7rem 1.5rem 4rem; }
+    section { padding: 4rem 1.5rem; }
+    .model-grid { grid-template-columns: 1fr; }
+    .model-item { border-right: none; }
+    .model-item:nth-last-child(-n+2) { border-bottom: 1px solid var(--rule); }
+    .model-item:last-child { border-bottom: none; }
+    .paper-item { grid-template-columns: 1fr; gap: 0.5rem; }
+    .paper-num { font-size: 1.5rem; }
+    footer { flex-direction: column; gap: 1rem; text-align: center; }
+  }
+</style>
 </head>
-
 <body>
-  <div class="container">
-    <header>
-      <h1>Modeling Adoption Dynamics in International Development</h1>
-    </header>
 
-    <main id="content">
-      <section aria-labelledby="goals">
-        <h2 id="goals">Project Goals</h2>
-
-        <p>
-          This project aims to understand when and why AI-supported decision tools
-          succeed, fail, or backfire in international development settings.
-          Rather than asking whether a tool is technically accurate, we focus on
-          whether it is accepted, sustained, and beneficial in real communities
-          over time.
-        </p>
-
-        <p>Specifically, the project has three goals:</p>
-
-        <ol>
-          <li>
-            <strong>Identify human and psychological conditions that affect uptake.</strong>
-            We study how risk perceptions, learning from experience, trust, and
-            social influence shape whether communities adopt and continue using
-            decision tools—and which forms of additional support can compensate
-            for these constraints.
-          </li>
-
-          <li>
-            <strong>Understand how decision tools can cause long-run harm despite short-run success.</strong>
-            We examine conditions under which tools that improve outcomes initially
-            may increase vulnerability, reduce welfare, or undermine trust over time.
-          </li>
-
-          <li>
-            <strong>Assess how geography and environmental context shape uptake and persistence.</strong>
-            We analyze how climate variability, environmental feedbacks, and
-            geographical conditions influence whether the same tool succeeds in
-            one place and fails in another, and how design or support can mitigate
-            these differences.
-          </li>
-        </ol>
-
-        <p>
-          Together, these goals aim to show not only whether decision tools work,
-          but under what conditions they can be responsibly and effectively deployed.
-        </p>
-      </section>
-
-      <section aria-labelledby="approach">
-  <h2 id="approach">Approach</h2>
-
-  <p>
-    We use dynamic systems modeling to study the interaction between decision
-    tools, household behavior under risk, social learning, and environmental
-    feedbacks.
-  </p>
-
-  <h3>1. Purpose of the Model</h3>
-  <p>
-    This agent-based model (ABM) simulates how fishers in a local community
-    decide whether to adopt and continue using an AI-supported fisheries app
-    over time.
-  </p>
-  <p>The model focuses on five core drivers of uptake:</p>
-  <ul>
-    <li>Trust</li>
-    <li>Perceptions of risk</li>
-    <li>Learning from past outcomes</li>
-    <li>Peer influence</li>
-    <li>Environmental variability</li>
+<nav>
+  <div class="nav-brand">Adoption Dynamics Project</div>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#model">Model</a></li>
+    <li><a href="#goals">Research Goals</a></li>
   </ul>
+</nav>
 
-  <h3>2. Model Overview</h3>
-  <p>
-    The model represents a fishing community composed of individual fishers
-    (agents) connected through a social network. Each season, fishers decide
-    whether to use the app based on their trust, past experiences, perceived
-    risk, and what their peers are doing.
-  </p>
-  <p>
-    Environmental conditions vary across seasons, influencing both fishing
-    outcomes and how fishers interpret the app’s performance.
-  </p>
-  <p>
-    The model runs over multiple time periods (e.g., fishing seasons) and
-    tracks how adoption evolves.
-  </p>
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-label">Agent-Based Modeling &middot; International Development</div>
+  <h1>When interventions fail:<br><em>modeling adoption dynamics</em><br>in small-scale fisheries</h1>
+  <p class="hero-sub">A computational study of the human and behavioral conditions under which technology interventions in development contexts succeed, stall, or cause long-run harm despite short-run success.</p>
+  <div class="hero-meta">
+    <div>
+      <div>Context</div>
+      <span>Small-scale fisheries, Lake Malawi</span>
+    </div>
+    <div>
+      <div>Method</div>
+      <span>Agent-based modeling (Mesa / Python)</span>
+    </div>
+    <div>
+      <div>Status</div>
+      <span>Model under development</span>
+    </div>
+  </div>
+</div>
 
-  <h3>3. Agents</h3>
-  <p>
-    Each fisher is represented as an agent with the following characteristics:
-  </p>
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-label">01 &mdash; About the Project</div>
+  <h2>Why do interventions fail?</h2>
 
-  <h4>3.1 Trust</h4>
-  <p>Represents confidence in the app and the institution behind it.</p>
-  <ul>
-    <li>Increases gradually after positive experiences</li>
-    <li>Decreases sharply after negative experiences</li>
-    <li>Is influenced by the trust levels of peers</li>
-  </ul>
-
-  <h4>3.2 Perceived Risk</h4>
-  <p>Represents how risky it feels to rely on the app.</p>
-  <ul>
-    <li>Increases after bad outcomes</li>
-    <li>Increases when environmental conditions are highly unpredictable</li>
-    <li>Decreases when many peers successfully use the app</li>
-  </ul>
-
-  <h4>3.3 Belief in Usefulness</h4>
-  <p>
-    Represents the fisher’s belief that the app improves outcomes (e.g., catch,
-    safety, income).
-  </p>
-  <p>Beliefs update over time based on personal experience.</p>
-  <p>Negative experiences may carry more weight than positive ones.</p>
-
-  <h4>3.4 Adoption Status</h4>
-  <p>Each season, a fisher either:</p>
-  <ul>
-    <li>Uses the app</li>
-    <li>Does not use the app</li>
-  </ul>
-  <p>
-    Adoption is probabilistic and depends on trust, beliefs, perceived risk,
-    environmental conditions, and peer behavior.
-  </p>
-
-  <h4>3.5 Social Network</h4>
-  <p>Each fisher observes a set of peers.</p>
-  <p>Peer influence affects:</p>
-  <ul>
-    <li>Willingness to adopt</li>
-    <li>Trust updates</li>
-    <li>Perceived risk</li>
-  </ul>
-  <p>
-    Fishers may copy behavior or confidence from their social contacts.
-  </p>
-
-    <h4>3.6 Resource Constraints</h4>
-  <p>
-    Represents a fisher's ability to weather a bad season or absorb losses.
-  </p>
-  <p>Resource-constrained fishers:</p>
-  <ul>
-    <li>Are more vulnerable to single negative outcomes</li>
-    <li>May be more risk-averse about trying new approaches</li>
-    <li>Have less capacity to experiment or learn through trial and error</li>
-    <li>May face higher stakes in adoption decisions</li>
-  </ul>
-  <p>Resource levels may also affect:</p>
-  <ul>
-    <li>Persistence after setbacks</li>
-    <li>Willingness to invest time in learning the app</li>
-    <li>Ability to access complementary resources (fuel, equipment) that make the app more useful</li>
-  </ul>
-
-  <h4>3.7 Time Horizons</h4>
-  <p>
-    Represents how far into the future a fisher weighs outcomes when making decisions.
-  </p>
-  <p>Variation may reflect:</p>
-  <ul>
-    <li>Age (younger fishers may have longer time horizons)</li>
-    <li>Health status</li>
-    <li>Family obligations and succession planning</li>
-    <li>Alternative livelihood options</li>
-  </ul>
-  <p>Fishers with longer time horizons:</p>
-  <ul>
-    <li>May be more willing to tolerate short-term uncertainty for long-term gains</li>
-    <li>May invest more in learning and skill-building</li>
-    <li>May be less deterred by initial setbacks</li>
-  </ul>
-  <p>
-    Time horizons interact with environmental variability—in highly volatile
-    contexts, even patient fishers may discount the future more heavily.
-  </p>
-
-  <h4>3.8 Alternative Information Sources</h4>
-  <p>
-    Represents access to and trust in other sources of knowledge.
-  </p>
-  <p>Sources may include:</p>
-  <ul>
-    <li>Traditional ecological knowledge passed down through generations</li>
-    <li>Personal fishing experience</li>
-    <li>Observations of environmental cues (weather patterns, water conditions, bird behavior)</li>
-    <li>Informal networks and elder fishers</li>
-  </ul>
-  <p>Fishers with strong alternative information sources:</p>
-  <ul>
-    <li>May be less dependent on the app</li>
-    <li>May use the app selectively or as a supplement rather than replacement</li>
-    <li>May evaluate the app's advice against traditional knowledge</li>
-    <li>May be slower to adopt if they perceive conflict between app recommendations and traditional practices</li>
-  </ul>
-  <p>
-    The relationship between traditional knowledge and app-based guidance may be:
-  </p>
-  <ul>
-    <li>Complementary (app confirms or refines existing knowledge)</li>
-    <li>Contradictory (app suggests different approaches)</li>
-    <li>Context-dependent (each works better in different conditions)</li>
-  </ul>
-
-  <h4>3.9 Technology Access and Literacy</h4>
-  <p>
-    Represents familiarity with smartphones and digital tools, as well as practical access.
-  </p>
-  <p>Variation includes:</p>
-  <ul>
-    <li>Prior experience with mobile phones or apps</li>
-    <li>Literacy and numeracy levels</li>
-    <li>Language compatibility</li>
-    <li>Physical access to devices (ownership vs. sharing)</li>
-    <li>Network connectivity and data costs</li>
-  </ul>
-  <p>Fishers with lower technology literacy or access:</p>
-  <ul>
-    <li>Face higher barriers to initial adoption</li>
-    <li>May require more support and training</li>
-    <li>May use the app less effectively even when adopted</li>
-    <li>May rely more heavily on intermediaries or facilitators</li>
-    <li>May experience the app differently (e.g., through voice vs. text interface)</li>
-  </ul>
-  <p>
-    Technology constraints can create persistent inequality in adoption and
-    benefits, even when the app is freely available.
-  </p>
-
-
-  <h3>4. Environment</h3>
-  <p>
-    Each season has a level of environmental variability.
-  </p>
-  <p>Examples include:</p>
-  <ul>
-    <li>Stable conditions</li>
-    <li>Moderately variable conditions</li>
-    <li>Highly volatile conditions (storms, shifting fish patterns, unusual weather)</li>
-  </ul>
-  <p>Environmental variability affects:</p>
-  <ul>
-    <li>The reliability of fishing outcomes</li>
-    <li>The clarity of feedback about whether the app is helpful</li>
-    <li>Perceived risk</li>
-  </ul>
-  <p>
-    Higher variability makes outcomes noisier and learning more difficult.
-  </p>
-
-  <h3>5. Seasonal Dynamics</h3>
-  <p>Each season unfolds in the following sequence:</p>
-
-  <h4>Step 1: Environmental Conditions Realize</h4>
-  <p>The season is characterized by a specific level of variability.</p>
-
-  <h4>Step 2: Social Observation</h4>
-  <p>Fishers observe:</p>
-  <ul>
-    <li>Which peers are using the app</li>
-    <li>Whether peers appear satisfied or dissatisfied</li>
-  </ul>
-
-  <h4>Step 3: Adoption Decision</h4>
-  <p>This decision depends on:</p>
-  <ul>
-    <li>Trust</li>
-    <li>Belief in usefulness</li>
-    <li>Perceived risk</li>
-    <li>Environmental conditions</li>
-    <li>Peer behavior</li>
-  </ul>
-
-  <h4>Step 4: Outcomes Occur</h4>
-  <p>Fishers experience fishing outcomes.</p>
-  <p>If using the app, outcomes may be:</p>
-  <ul>
-    <li>Better than baseline</li>
-    <li>Worse than baseline</li>
-    <li>Ambiguous due to environmental noise</li>
-  </ul>
-  <p>
-    In volatile seasons, even a useful app may appear ineffective.
-  </p>
-
-  <h4>Step 5: Updating</h4>
-  <p>Fishers update:</p>
-  <ul>
-    <li>Beliefs about usefulness</li>
-    <li>Trust</li>
-    <li>Perceived risk</li>
-  </ul>
-  <p>
-    Highly visible failures may reduce trust across the entire community.
-  </p>
-
-  <h3>6. Possible System Dynamics</h3>
-
-  <h4>6.1 Gradual Diffusion</h4>
-  <p>Adoption increases steadily as trust builds and peers influence others.</p>
-
-  <h4>6.2 Fragility</h4>
-  <p>A single extreme season reduces trust significantly.</p>
-
-  <h4>6.3 Trust Collapse</h4>
-  <p>A public or widely discussed failure causes rapid decline in adoption.</p>
-
-  <h4>6.4 Persistent Inequality</h4>
-  <p>Risk-averse or resource-constrained fishers may never adopt.</p>
-
-  <h4>6.5 Context-Dependent Success</h4>
-  <p>
-    The same app may succeed in moderately variable environments but struggle
-    in highly volatile environments.
-  </p>
-
-  <h3>7. Policy and Design Experiments</h3>
-  <p>The model allows simulation of interventions such as:</p>
-  <ul>
-    <li>Training programs that accelerate trust-building</li>
-    <li>Human facilitation to reduce perceived risk</li>
-    <li>Subsidies lowering adoption barriers</li>
-    <li>Communication strategies after failures</li>
-    <li>Different network structures (central influencers vs decentralized communities)</li>
-  </ul>
-
-  <h3>8. Outputs Tracked</h3>
-  <p>Over time, the model tracks:</p>
-  <ul>
-    <li>Overall adoption rate</li>
-    <li>Trust distribution</li>
-    <li>Dropout rates</li>
-    <li>Sensitivity to environmental shocks</li>
-    <li>Differences across subgroups</li>
-    <li>Stability versus collapse of uptake</li>
-  </ul>
-</section>
-
-
-      <section aria-labelledby="collaborators">
-        <h2 id="collaborators">Collaborators</h2>
-        <ul>
-          <li>The Positive Development™ Living Lab at Lake Malawi</li>
-          <li>Mzuzu University</li>
-        </ul>
-      </section>
-    </main>
-
-    <footer>
-      <p>Last updated: February 2026</p>
-    </footer>
+  <div class="context-box">
+    <p>Technology tools in development contexts often show early promise — uptake is high, outcomes improve, and funders celebrate. Then adoption collapses. Trust erodes. Communities end up worse off than before. The question this project asks is: why, and under what conditions can we predict it?</p>
   </div>
 
-  <!-- Service Worker Registration -->
-  <script>
-    if ("serviceWorker" in navigator) {
-      window.addEventListener("load", function() {
-        navigator.serviceWorker.register("sw.js");
-      });
-    }
-  </script>
+  <p>This project builds an agent-based model (ABM) of how small-scale fishers in Malawi decide whether to adopt an AI-supported fisheries application — and how that decision evolves over time in response to outcomes, peers, and environmental conditions.</p>
+
+  <p>Each simulated fisher is shaped by trust in the institution behind the tool, perceived risk, access to alternative information, social network position, fishing skill, and resource constraints. The environment fluctuates seasonally and is subject to shocks. The social network — clustered, hub-and-spoke, or dispersed — shapes how influence flows through the community.</p>
+
+  <p>By varying these conditions systematically across thousands of simulated runs, the model is designed to identify the specific configurations of human behavior, social structure, and environmental context that determine whether an intervention takes root, fades out, or actively causes harm over the long run.</p>
+</section>
+
+<!-- MODEL -->
+<section id="model">
+  <div class="section-label">02 &mdash; Model Architecture</div>
+  <h2>A seasonal, networked world of<br>boundedly rational fishers</h2>
+  <p>The model is built in Python using the Mesa agent-based modeling framework. It consists of five interacting components.</p>
+
+  <div class="model-grid">
+    <div class="model-item">
+      <div class="model-item-label">Agents</div>
+      <h3>Fisher Agents</h3>
+      <p>Each agent holds 11 attributes including trust, perceived risk, perceived usefulness, resource level, time horizon, tech literacy, fishing skill, and social network position. Attributes are updated each season based on outcomes and peer observation.</p>
+    </div>
+    <div class="model-item">
+      <div class="model-item-label">Environment</div>
+      <h3>Seasonal Fish Population</h3>
+      <p>Three seasons model Lake Malawi's fishing calendar: cool dry (peak), hot dry (moderate), and rainy (low). Fish availability follows a normal distribution around seasonal baselines, with stochastic volatility and discrete shock events.</p>
+    </div>
+    <div class="model-item">
+      <div class="model-item-label">Social Network</div>
+      <h3>Three Network Topologies</h3>
+      <p>Clustered (tight village cliques with weak inter-group ties), hub-and-spoke (community leaders bridging sparse connections), and dispersed (random Erdős–Rényi). Network topology is a primary experimental variable.</p>
+    </div>
+    <div class="model-item">
+      <div class="model-item-label">Intervention</div>
+      <h3>AI-Supported App</h3>
+      <p>The app improves outcomes through two pathways: skill augmentation (multiplier on fishing effectiveness) and information improvement (variance reduction in catch outcomes). A learning curve governs how quickly agents realize the app's full benefit.</p>
+    </div>
+    <div class="model-item">
+      <div class="model-item-label">Decision</div>
+      <h3>Adoption &amp; Dropout</h3>
+      <p>Agents adopt based on a logistic function over trust, perceived usefulness, social influence, and risk. Dropout is tracked separately from never-adoption — the two have different behavioral signatures and different policy implications.</p>
+    </div>
+    <div class="model-item">
+      <div class="model-item-label">Outputs</div>
+      <h3>Seasonal Time Series</h3>
+      <p>Each run produces adoption rates, trust distributions, catch outcomes, and overfishing indicators across seasons and years. Summary statistics across trials include means, medians, standard deviations, and 95% confidence intervals.</p>
+    </div>
+  </div>
+</section>
+
+<!-- RESEARCH GOALS -->
+<section id="goals">
+  <div class="section-label">03 &mdash; Research Goals</div>
+  <h2>Four questions, four studies</h2>
+  <p>The model is designed to support a program of four studies, each targeting a distinct theoretical contribution.</p>
+
+  <div class="papers-list">
+
+    <div class="paper-item">
+      <div class="paper-num">01</div>
+      <div class="paper-content">
+        <div class="target">Social Networks &amp; Diffusion</div>
+        <h3>How does network topology shape adoption diffusion and its resilience to hub dropout?</h3>
+        <p>Systematic comparison of clustered, hub-and-spoke, and dispersed networks across adoption speed, final uptake, and sensitivity to the removal of highly connected individuals. Includes seeding experiments testing optimal initial targets for intervention rollout.</p>
+      </div>
+    </div>
+
+    <div class="paper-item">
+      <div class="paper-num">02</div>
+      <div class="paper-content">
+        <div class="target">Behavioral Conditions for Uptake</div>
+        <h3>What human and psychological conditions determine whether a technology intervention takes root in a fishing community?</h3>
+        <p>Explores how trust dynamics, loss aversion, time horizon, and alternative information access shape individual adoption decisions and community-level uptake patterns. Identifies which agent attributes most strongly predict persistent adoption versus early dropout.</p>
+      </div>
+    </div>
+
+    <div class="paper-item">
+      <div class="paper-num">03</div>
+      <div class="paper-content">
+        <div class="target">Geography &amp; Environmental Context</div>
+        <h3>How does environmental volatility and seasonal context shape adoption trajectories across different community types?</h3>
+        <p>Tests the model across stable, moderate, and volatile environmental regimes and examines how seasonal shocks interact with the attribution problem — the difficulty agents face in distinguishing app-caused failures from environmentally-caused ones.</p>
+      </div>
+    </div>
+
+    <div class="paper-item">
+      <div class="paper-num">04</div>
+      <div class="paper-content">
+        <div class="target">Long-Run Harm</div>
+        <h3>Under what conditions does a beneficial decision tool cause long-run harm despite short-run adoption success?</h3>
+        <p>Activates the endogenous resource dynamics module to model the full adoption-overuse-collapse cycle. Examines how short-run adoption success can mask the conditions that lead to resource depletion, trust collapse, and community-wide worse outcomes than the pre-intervention baseline.</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<footer>
+  <div>Adoption Dynamics in International Development &mdash; Working Project</div>
+  <div>Agent-Based Model &middot; Lake Malawi &middot; In Progress</div>
+</footer>
 
 </body>
 </html>
